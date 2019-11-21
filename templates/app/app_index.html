@@ -7,8 +7,8 @@ Welcome
 {% block content %}
     <div class="jumbotron">
         <div class="container">
-            <h1>Welcome to BrikUtils!</h1>
-            <p>A collection of (hopefully) useful Rubrik processes</p>
+            <h1>Charles' Cloud Playground</h1>
+            <p>One Part Python & Gcloud Sandbox.  Another Part VMware Data Analysis.  More parts maybe later.</p>
         </div>
     </div>
 {% endblock %}
@@ -16,6 +16,5 @@ Welcome
 {% block applist %}
     <div class="row">
         {% include "app/app_snip_columns.html" with col_heading="RVTOOLS Analysis" col_message="It's like a spreadsheet, only faster!" appurl="rvt_view" %}
-        {% include "app/app_snip_columns.html" with col_heading="AutoBrik" col_message="Loops, Lists & Custom Rubrik API Manipulation. Ever want to do something over and over again to a Rubrik object?  Now's your chance!" appurl="autobrik_home" %}
     </div>
 {% endblock %}

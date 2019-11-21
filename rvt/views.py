@@ -1,22 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django import template
 
 from app.fusioncharts import FusionCharts
-from django.views.generic import DeleteView, UpdateView, ListView
-from django.urls import reverse_lazy
 
 #  form & models
 from .forms import UploadFileForm, OrgForm
 from .models import RVTvInfo, RVTvDisk, RVTvPartition, RVTvDatastore, RVTvHost
-from django.db.models import Avg, Max, Min, Sum
 from org.models import Org, Assessment
 
 #  file includes
 import csv, xlrd, os, uuid
 from io import TextIOWrapper
-
 
 
 @login_required
@@ -102,12 +97,9 @@ def upload(request):
                 messages.error(request, 'File is not XLSX or XLS type')
                 return redirect('rvt_view')
 
-            #  Where are we keeping our files?  @TODO update to model-based
-            path = 'uploads/' + request.user.username + '/'
-            file_uuid = handle_uploaded_file(file, path)
+            #  Used to actually STORE the files - decided that was dumb, so ripped it out - just capturing file name for recordkeeping
+            wb = xlrd.open_workbook(file_contents=file.read())
 
-            #  init the file read - XLS focused here
-            wb = xlrd.open_workbook(path + file_uuid)
             sNames = wb.sheet_names()
             if 'vInfo' in sNames:
                 sh = wb.sheet_by_name('vInfo')
@@ -159,7 +151,6 @@ def upload(request):
                         rvt_vi_assessment=linked_assessment,
                         rvt_vi_batch=nextbatch,
                         rvt_vi_filename_orig=file,
-                        rvt_vi_filename=path + file_uuid,
                         rvt_vi_vm=rvt_vi_vm_data,
                         rvt_vi_powerstate=rvt_vi_powerstate_data,
                         rvt_vi_dnsname=sh.cell(row, header_col_num(hr, "DNS Name")).value,
@@ -187,7 +178,6 @@ def upload(request):
                     )
                     vinfo_table = saverecord.save()
                 count = count + 1
-
 
             #Run through our other worksheets, tie them to this object
             # Call Out to build subroutine
@@ -424,7 +414,6 @@ def header_col_num(hr, srchstring):
 
         count=count+1
 
-
 def str_to_bool(s):
     if s.lower() == 'true':
          return True
@@ -435,13 +424,14 @@ def str_to_bool(s):
     else:
          raise ValueError
 
-
+# DEPRECATED - No longer storing the file - keep just in case it's easy to re-use later for blob storage
 def handle_uploaded_file(f, p):
     #  writefile =  'uploads/' + user.username + '/' + f.name
     #  get extension & give our file a unique name.
     ext = f.name.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
     writefile = p + filename
+
     os.makedirs(os.path.dirname(writefile), exist_ok=True)
     with open(writefile, 'wb+') as destination:
         for chunk in f.chunks():
@@ -461,10 +451,6 @@ def delrvt(request, batchid):
 
     else:
         my_records = RVTvInfo.objects.records_for_batch(request.user, batchid)
-        #  my_records.get(rvt_vi_batch=batchid)
-        test = my_records.all()[:1].get()
-        file = test.rvt_vi_filename
-        os.remove(file)
         my_records.delete()
 
         my_records = RVTvDisk.objects.records_for_batch(request.user, batchid)

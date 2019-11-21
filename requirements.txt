@@ -2,3 +2,5 @@ Django==2.1.14
 psycopg2-binary
 django-crispy-forms
 xlrd
+google-cloud-storage
+django-storages[google]

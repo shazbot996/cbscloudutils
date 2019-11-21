@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    New CSV Data
+    New RVTOOLS Data
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="page-header">
-        <h1>Upload RVTOOLS Data File (CSV)</h1>
+        <h1>Upload RVTOOLS Data File (XLSX)</h1>
     </div>
 
     <div class="well">
@@ -44,10 +44,11 @@
         <div class="col-sm-6">
           <div class="panel panel-danger">
             <div class="panel-heading">
-              <h3 class="panel-title">[vInfo] Worksheet</h3>
+              <h3 class="panel-title">RVTOOLS Export File</h3>
             </div>
             <div class="panel-body">
-              <p>Upload a valid un-redacted .XLSX export from a valid RVTOOLS capture.</p>
+                <p>Upload a valid un-redacted .XLSX export from a valid RVTOOLS capture.</p>
+                <p>File needs to be associated with an existing Assessment.</p>
             </div>
           </div>
         </div>

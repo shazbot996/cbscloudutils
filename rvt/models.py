@@ -1,10 +1,6 @@
 from __future__ import unicode_literals
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-from django.db.models import Q
 from django.contrib.auth.models import User
-
-
 
 class RVTvInfoQuerySet(models.QuerySet):
     def records_for_user(self, user):
@@ -21,9 +17,7 @@ class RVTvInfo(models.Model):
     rvt_vi_user = models.ForeignKey(User, related_name="rvt_vi_user", default='1', on_delete=models.CASCADE)
     rvt_vi_assessment = models.ForeignKey('org.Assessment', related_name="rvt_vi_assessment", default='1', on_delete=models.CASCADE)
     rvt_vi_batch = models.IntegerField(null=True)
-    rvt_vi_filename = models.CharField(max_length=300, blank=False, default="UNSET")
     rvt_vi_filename_orig = models.CharField(max_length=300, blank=False, default="UNSET")
-
     rvt_vi_vm = models.CharField(max_length=300, blank=True, null=True)
     rvt_vi_powerstate = models.CharField(max_length=300, default="UNSET")
     rvt_vi_dnsname = models.CharField(max_length=300, blank=True, null=True)

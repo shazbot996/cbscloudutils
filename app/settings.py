@@ -29,7 +29,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,16 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-# Install PyMySQL as mysqlclient/MySQLdb to use Django's mysqlclient adapter
-# See https://docs.djangoproject.com/en/2.1/ref/databases/#mysql-db-api-drivers
-# for more information
-#import pymysql  # noqa: 402
-#pymysql.install_as_MySQLdb()
-
 # [START db_setup]
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
@@ -100,7 +89,7 @@ else:
     # Running locally so connect to either a local MySQL instance or connect to
     # Cloud SQL via the proxy. To start the proxy via command line:
     #
-    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #     $ cloud_sql_proxy -instances=cbscloudutils:us-east4:cbscloudpgsqldb=tcp:5432
     #
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
@@ -144,22 +133,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-#STATIC Content - JS, CSS, and app static - all in /static/
-#STATIC_ROOT = os.path.join(BASE_DIR, "static")
-#STATIC_URL = '/static/'
-
+# I really need to get a handle on this static hosting stuff
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
-
-
-
-# UPLOAD Files - @TODO - Change to More Secure Persistent Locale
-MEDIA_ROOT = '/uploads/'
 
 LOGIN_REDIRECT_URL="user_home"
 LOGOUT_REDIRECT_URL="app_index"
