@@ -1,0 +1,32 @@
+<!--Separate Include for sub-table view of vdisks -->
+{% load humanize %}
+<table class="table table-bordered table-striped">
+    <tbody>
+    {% if vdisks %}
+        <tr>
+            <th>vDisks</th>
+            <th>Capacity TB</th>
+            <th>RDM Count</th>
+            <th>Thin/Thick</th>
+        </tr>
+        <tr>
+            <td>
+                {{ vdisks.count }}
+            </td>
+            <td>
+                {{ capacity|floatformat:"1"|intcomma }}
+            </td>
+            <td>
+                {{ rdmcount }}
+            </td>
+            <td>
+                {{ thincount }} / {{ thickcount }}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td>None Yet Created</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
