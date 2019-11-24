@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^assessment$', MyAssessList.as_view(), name='assess_list'),
     url(r'^assessment/view/(\d+)/$', assess_view, name='assess_view'),
     url(r'^assessment/add$', assess_add, name="assess_add"),
+    url(r'^assessment/add/(\d+)/$', assess_add, name="assess_add"),
     url(r'^assessment/edit/(?P<pk>\d+)/$', AssessUpdate.as_view(), name='assess_update'),
 
     url(r'^assessment/delete/(?P<pk>\d+)/$', AssessDelete.as_view(), name="assess_delete"),

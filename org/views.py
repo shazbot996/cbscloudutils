@@ -76,7 +76,7 @@ class OrgDelete(DeleteView):
 
 
 @login_required
-def assess_add(request):
+def assess_add(request, orgid=0):
     if request.method == "POST":
         thisuser = Assessment(assess_creator=request.user)
         form = AssessAddForm(request.user, instance=thisuser, data=request.POST)
@@ -85,7 +85,7 @@ def assess_add(request):
             return redirect('/org/assessment')
     else:
         message = ""
-        form = AssessAddForm(request.user)
+        form = AssessAddForm(request.user, initial={'assess_org': orgid})
         return render(request, "org/assessment_add_form.html", {'form': form, 'message': message})
 
 

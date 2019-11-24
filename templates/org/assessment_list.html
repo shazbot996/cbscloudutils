@@ -30,7 +30,7 @@
                 {% for assessment in assessment_list %}
                     <tr>
                         <td><b><a href="/org/view/{{ assessment.assess_org_id }}/">{{ assessment.assess_org }}</a></b></td>
-                        <td>{{ assessment.assess_name }}</td>
+                        <td><b><a href="/org/assessment/view/{{ assessment.id }}/">{{ assessment.assess_name }}</a></b></td>
                         <td><i>{{ assessment.load_time }}</i></td>
                         <td>
                             <form method="get" action="/org/assessment/view/{{ assessment.id }}/">

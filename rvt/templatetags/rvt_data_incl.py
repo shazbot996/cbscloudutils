@@ -99,18 +99,24 @@ def show_vinfo(batch):
     memory = formula['rvt_vi_memory__sum']/1000
     memorytovm = memory / vinfo.count()
 
+    pwron = RVTvInfo.objects.filter(rvt_vi_powerstate="poweredOn").count()
+    pwroff = RVTvInfo.objects.filter(rvt_vi_powerstate="poweredOff").count()
+
+    loaded_on = next(iter(vinfo)).load_time
+
     return {
         'vinfo': vinfo,
         'unshared': unshared,
         'used': used,
         'prov': prov,
-        'pwron': RVTvInfo.objects.filter(rvt_vi_powerstate="poweredOn").count(),
-        'pwroff': RVTvInfo.objects.filter(rvt_vi_powerstate="poweredOff").count(),
+        'pwron': pwron,
+        'pwroff': pwroff,
         'disktotal': disktotal,
         'cputotal': cputotal,
         'vcputovm': vcputovm,
         'memory': memory,
         'memorytovm': memorytovm,
+        'loaded_on': loaded_on,
     }
 
 

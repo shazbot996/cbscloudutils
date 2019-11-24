@@ -42,8 +42,12 @@
             <div class="panel-body">
                 <table width="150">
                     <tr>
-                        <td><form method="get" action="/org/edit/{{ thisorg.id }}/"><button class="btn btn-xs btn-primary" type="submit">Edit</button></form></td>
-                        <td><form method="get" action="/org/delete/{{ thisorg.id }}/"><button class="btn btn-xs btn-danger" type="submit">Delete</button></form></td>
+                        <td><form method="get" action="/org/edit/{{ thisorg.id }}/"><button class="btn btn-xs btn-primary" type="submit">Edit Organization Details</button></form></td>
+                        <td><form method="get" action="/org/delete/{{ thisorg.id }}/"><button class="btn btn-xs btn-danger" type="submit">Delete Organization</button></form></td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="2"><form method="get" action="/org/assessment/add/{{ thisorg.id }}/"><button class="btn btn-xs btn-primary" type="submit">Create New Assessment for This Org</button></form></td>
                     </tr>
                 </table>
             </div>
@@ -75,7 +79,7 @@
                         </td>
                         <td>
                             <form method="get" action="/org/assessment/edit/{{ assessment.id }}/">
-                                <button type="submit" class="btn btn-xs btn-primary">Edit</button>
+                                <button type="submit" class="btn btn-xs btn-primary">Rename</button>
                             </form>
                         </td>
                         <td>

@@ -80,13 +80,14 @@ def vmFusionChart(vm_records):
 
 
 @login_required
-def upload(request):
+def upload(request, assessid=0):
 
     #  not a file - show the form
     if request.method == 'GET':
         form = UploadFileForm()
         assessments = Assessment.objects.filter(assess_creator=request.user)
-        return render(request, "rvt/rvt_rvtdataform.html", {'form': form, 'assessments': assessments})
+        assessid = int(assessid)
+        return render(request, "rvt/rvt_rvtdataform.html", {'form': form, 'assessments': assessments, 'assessid': assessid})
 
     # is a file - process & display
     else:

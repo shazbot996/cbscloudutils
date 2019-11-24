@@ -27,7 +27,11 @@
                 <select name="assessment" required>
                     <option value="">--SELECT--</option>
                     {% for assessment in assessments %}
-                        <option value="{{assessment.id}}">{{ assessment.assess_org.org_name }} - {{assessment.assess_name}}</option>
+                        {% if assessid == assessment.id %}
+                            <option selected value="{{assessment.id}}">{{ assessment.assess_org.org_name }} - {{assessment.assess_name}}</option>
+                        {% else %}
+                            <option value="{{assessment.id}}">non {{ assessment.assess_org.org_name }} - {{assessment.assess_name}}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
 

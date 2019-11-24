@@ -22,7 +22,7 @@
                 <th>Organization Name</th>
                 <th>Organization Contact</th>
                 <th>Date/Time Added</th>
-                <th colspan="3">Actions</th>
+                <th colspan="4">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -47,11 +47,17 @@
                                 <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                             </form>
                         </td>
+                        <td>
+                            <form method="get" action="/org/assessment/add/{{ org.id }}/">
+                                <button class="btn btn-xs btn-primary" type="submit">Create Assessment</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             {% else %}
                 <tr>
                     <td>None Yet Created</td>
+                    <td>--</td>
                     <td>--</td>
                     <td>--</td>
                 </tr>
