@@ -103,9 +103,13 @@ def show_vinfo(batch):
     pwroff = RVTvInfo.objects.filter(rvt_vi_powerstate="poweredOff").count()
 
     loaded_on = next(iter(vinfo)).load_time
+    vcenter = next(iter(vinfo)).rvt_vi_sdkserver
+    if vcenter == "UNSET":
+        vcenter = "(Old RVTOOLS Format. Did not store vCenter Name)"
 
     return {
         'vinfo': vinfo,
+        'vcenter': vcenter,
         'unshared': unshared,
         'used': used,
         'prov': prov,
