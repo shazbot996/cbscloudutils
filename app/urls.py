@@ -1,6 +1,7 @@
 """URL Configuration
 """
 from django.contrib import admin
+from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import RedirectView
@@ -8,7 +9,7 @@ from django.views.generic import RedirectView
 from .views import index, me, initadmin
 
 urlpatterns = [
-    url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
+    url(r'^favicon\.ico$',RedirectView.as_view(url=settings.STATIC_URL + 'favicon.ico')),
     url(r'^$', index, name="app_index"),
     url(r'^me$',
         me,

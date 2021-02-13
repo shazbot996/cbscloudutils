@@ -72,37 +72,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-# [START db_setup]
-if os.getenv('GAE_APPLICATION', None):
-    # Running on production App Engine, so connect to Google Cloud SQL using
-    # the unix socket at /cloudsql/<your-cloudsql-connection string>
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': '/cloudsql/cbscloudutils:us-east4:cbscloudpgsqldb',
-            'USER': 'postgres',
-            'PASSWORD': 'HnbcAJ8O6x90BJzC',
-            'NAME': 'cbscloudutils',
-        }
+# [START dbconfig]
+DATABASES = {
+    'default': {
+        # If you are using Cloud SQL for MySQL rather than PostgreSQL, set
+        # 'ENGINE': 'django.db.backends.mysql' instead of the following.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'appdb',
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
-else:
-    # Running locally so connect to either a local MySQL instance or connect to
-    # Cloud SQL via the proxy. To start the proxy via command line:
-    #
-    #     $ cloud_sql_proxy -instances=cbscloudutils:us-east4:cbscloudpgsqldb=tcp:5432
-    #
-    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-            'NAME': 'cbscloudutils',
-            'USER': 'postgres',
-            'PASSWORD': 'HnbcAJ8O6x90BJzC',
-        }
-    }
-# [END db_setup]
+}
+# [END dbconfig]
 
 
 # Password validation
@@ -134,12 +117,14 @@ USE_L10N = True
 USE_TZ = True
 
 # I really need to get a handle on this static hosting stuff
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+STATIC_URL = 'http://storage.googleapis.com/cbs-cloudutils-static/static/'
 STATIC_ROOT = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static")
+#]
+
 
 LOGIN_REDIRECT_URL="user_home"
 LOGOUT_REDIRECT_URL="app_index"

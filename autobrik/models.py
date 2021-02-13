@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-from django.utils.encoding import python_2_unicode_compatible
+#DEPRECATED - REVIEW
+#from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -26,7 +27,7 @@ class GamesQuerySet(models.QuerySet):
         )
 
 
-@python_2_unicode_compatible
+#@python_2_unicode_compatible
 class Game(models.Model):
     first_player = models.ForeignKey(User, related_name="games_first_player", on_delete=models.CASCADE)
     second_player = models.ForeignKey(User, related_name="games_second_player", on_delete=models.CASCADE)
@@ -41,7 +42,7 @@ class Game(models.Model):
             self.first_player, self.second_player)
 
 
-@python_2_unicode_compatible
+#@python_2_unicode_compatible
 class Move(models.Model):
     x = models.IntegerField()
     y = models.IntegerField()
